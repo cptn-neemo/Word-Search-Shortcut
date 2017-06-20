@@ -1,0 +1,1 @@
+First commit-June 20: Initial creation, coded the horizontal finder   TODO: Reverse the horizontal finder for right to left words, vertical and diagonal finder
