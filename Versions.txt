@@ -1,2 +1,4 @@
 First commit-June 20: Initial creation, coded the horizontal finder   TODO: Reverse the horizontal finder for right to left words, vertical and diagonal finder
 Second commit-June 21: Added some documentation, and also added right to left finder. TODO: Add vertical and horizontal finder
+Third commit- June 27: Added up to down finder
+Fourth commit- June 28: Added down to up finder
