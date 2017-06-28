@@ -44,7 +44,7 @@ def left_horizontal_check(word, board):
 def up_down_reverse(board,new_board):
     new_board = []
     each_col = []
-    count = 0
+
     len_row = len(board[0])
     for col in range(len_row):
         for i in range(len(board)):
@@ -58,26 +58,42 @@ def up_down_check(word,board):
 
     horizontal_check(word,new_board)
 
-    len_row = len(new_board[0])
-
     board = []
     board = up_down_reverse(new_board,board)
     return board
 
+def down_up_check(word,board):
+    new_board = []
+    #Switch the orientation
+    new_board = up_down_reverse(board,new_board)
 
+    for row in range(len(new_board)):
+        new_board[row] = new_board[row][::-1]
+
+    horizontal_check(word,new_board)
+
+    for row in range(len(new_board)):
+        new_board[row] = new_board[row][::-1]
+
+    board = []
+    board = up_down_reverse(new_board,board)
+
+    return board
 
 def all_check(word, board):
     board = right_horizontal_check(word, board)
     board = left_horizontal_check(word, board)
     board = up_down_check(word,board)
+    board = down_up_check(word,board)
     return board
 
 
-board = [['m', 'o', 'n', 'k', 'e'], ['a', 'k', 'n', 'o', 'm'], ['x', 'b', 'c', 'd', 'd']]
+board = [['x', 'o', 'n', 'k', 'e'], ['a', 'k', 'n', 'o', 'm'], ['m', 'b', 'c', 'd', 'd']]
 words = 'max'
 print('Original board: '),
 print(range(len(board)))
 board = all_check(words, board)
 print('new board: '), print(board)
+
 
 
