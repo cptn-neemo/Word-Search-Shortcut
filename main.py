@@ -80,20 +80,98 @@ def down_up_check(word,board):
 
     return board
 
+def right_down_check(word,board):
+
+
+    """
+    Start in the top right corner of the board, then works its way left
+    Create a new horizointal list of the current board
+    """
+    new_board = board
+
+    #List of the top column,reverse it to start in top right
+    top_col = board[0]
+    side_col = []
+    #Index of the row
+    r = len(board) - 1
+    while r >= 0:
+        side_col.append(board[r][0])
+        r -= 1
+
+    #Index of the column
+    c = 0
+    #Index of the row
+    r = len(board)
+
+    new_list = []
+
+
+
+
+def diagonal_check(word,board):
+
+    word_place = 0
+
+    c = 0
+    r = 0
+    for row in range(len(board)):
+        for col in range(len(board[row])):
+            word_place = 0
+            if word[word_place] == board[row][col]:
+                r = row
+                c = col
+
+                for let in word:
+                    try:
+                        if word[word_place] == board[r][c]:
+                            c += 1
+                            r += 1
+                            word_place += 1
+                        else: break
+                    except:
+                        break
+                else:
+                    c = col
+                    r = row
+
+                    for let in range(len(word)):
+                        board[r][c] = word[let].upper()
+                        r += 1
+                        c += 1
+
+    return board
+def opp_diagonal_check(word,board):
+    new_board = board
+
+    new_board = new_board[::-1]
+    for row in range(len(new_board)):
+        new_board[row] = new_board[row][::-1]
+
+    diagonal_check(word,new_board)
+
+    new_board = new_board[::-1]
+    for row in range(len(new_board)):
+        new_board[row] = new_board[row][::-1]
+    board = new_board
+
+    return board
+
 def all_check(word, board):
     board = right_horizontal_check(word, board)
     board = left_horizontal_check(word, board)
     board = up_down_check(word,board)
     board = down_up_check(word,board)
+    board = diagonal_check(word,board)
+    board = opp_diagonal_check(word,board)
     return board
 
 
-board = [['x', 'o', 'n', 'k', 'e'], ['a', 'k', 'n', 'o', 'm'], ['m', 'b', 'c', 'd', 'd']]
+board = [['m', 'd', 'x', 'k', 'e'], ['a', 'a', 'o', 'a', 'm'], ['m', 'b', 'x', 'g', 'm']]
 words = 'max'
-print('Original board: '),
-print(range(len(board)))
+print('Original board: '), print(board)
 board = all_check(words, board)
 print('new board: '), print(board)
+print()
 
 
 
