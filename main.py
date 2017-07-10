@@ -11,7 +11,7 @@ def horizontal_check(word_1, board_1):
     for col in board_1:
         for p in range(len(col)):
             place = 0
-            if word_1[place] == col[p]:
+            if word_1[place] == col[p] or word_1[place] == col[p].lower():
                 count = p
                 for pl in word_1:
                     try:
@@ -80,34 +80,8 @@ def down_up_check(word,board):
 
     return board
 
-def right_down_check(word,board):
 
-
-    """
-    Start in the top right corner of the board, then works its way left
-    Create a new horizointal list of the current board
-    """
-    new_board = board
-
-    #List of the top column,reverse it to start in top right
-    top_col = board[0]
-    side_col = []
-    #Index of the row
-    r = len(board) - 1
-    while r >= 0:
-        side_col.append(board[r][0])
-        r -= 1
-
-    #Index of the column
-    c = 0
-    #Index of the row
-    r = len(board)
-
-    new_list = []
-
-
-
-
+#The main check diagonal function: Top right -> Bottom left
 def diagonal_check(word,board):
 
     word_place = 0
@@ -123,7 +97,7 @@ def diagonal_check(word,board):
 
                 for let in word:
                     try:
-                        if word[word_place] == board[r][c]:
+                        if word[word_place] == board[r][c] or word[word_place] == board[r][c].lower():
                             c += 1
                             r += 1
                             word_place += 1
@@ -140,7 +114,9 @@ def diagonal_check(word,board):
                         c += 1
 
     return board
-def opp_diagonal_check(word,board):
+
+#Diagonal check: Bottom right -> Top left
+def brTL_diagonal_check(word,board):
     new_board = board
 
     new_board = new_board[::-1]
@@ -156,22 +132,67 @@ def opp_diagonal_check(word,board):
 
     return board
 
+
+#Diagonal check: Top left -> Bottom right
+def trBL_diagonal_check(word,board):
+    new_board = board
+
+    for row in range(len(new_board)):
+        new_board[row] = new_board[row][::-1]
+
+    diagonal_check(word,new_board)
+
+    for row in range(len(new_board)):
+        new_board[row] = new_board[row][::-1]
+
+    return board
+
+def blTR_diagonal_check(word,board):
+    new_board = board[::-1]
+
+    diagonal_check(word,new_board)
+
+    board = new_board[::-1]
+
+    return board
+
+
 def all_check(word, board):
     board = right_horizontal_check(word, board)
     board = left_horizontal_check(word, board)
     board = up_down_check(word,board)
     board = down_up_check(word,board)
     board = diagonal_check(word,board)
-    board = opp_diagonal_check(word,board)
+    board = brTL_diagonal_check(word,board)
+    board = trBL_diagonal_check(word,board)
+    board = blTR_diagonal_check(word,board)
     return board
 
-
-board = [['m', 'd', 'x', 'k', 'e'], ['a', 'a', 'o', 'a', 'm'], ['m', 'b', 'x', 'g', 'm']]
-words = 'max'
+"""
+board = [['m', 'd', 'g', 'k', 'a'], ['a', 'o', 'o', 'o', 'm'], ['d', 'b', 'g', 'a', 'm']]
+words = 'dog'
 print('Original board: '), print(board)
 board = all_check(words, board)
 print('new board: '), print(board)
 print()
+"""
+
+#Create a list of lists with the board
+board = []
+with open('Sample_Input.txt') as o:
+    for line in o:
+        board.append(line.rstrip().split(' '))
+
+
+
+words = ['dog','cat','max','dad','hello','good','bad','true']
+
+for word in words:
+    board = all_check(word,board)
+
+for row in board:
+    print(row)
+
 
 
 

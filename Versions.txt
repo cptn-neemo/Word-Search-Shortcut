@@ -3,3 +3,4 @@ Second commit-June 21: Added some documentation, and also added right to left fi
 Third commit- June 27: Added up to down finder
 Fourth commit- June 28: Added down to up finder
 Fifth commit- June 29: Added right to left down diagonal finder and left to right and up diagonal finder TODO: Add the other ways diagonal
+Sixth commit - July 10: Finished all of the finders and added opening from text file
